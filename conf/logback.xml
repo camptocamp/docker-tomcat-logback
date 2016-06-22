@@ -8,8 +8,28 @@
     </appender>
 
     <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <fieldNames>
+                <timestamp>timestamp</timestamp>
+            </fieldNames>
+            <!--<prefix class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>@cee:</pattern>
+                </layout>
+            </prefix>-->
+        </encoder>
         <target>System.err</target>
+    </appender>
+
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashSocketAppender">
+        <fieldNames>
+            <timestamp>timestamp</timestamp>
+        </fieldNames>
+        <prefix class="ch.qos.logback.classic.PatternLayout">
+            <pattern>@cee:</pattern>
+        </prefix>
+        <host>${TOMCAT_LOG_HOST:-localhost}</host>
+        <port>${TOMCAT_LOG_PORT:-514}</port>
     </appender>
 
     <include file="${CATALINA_HOME}/conf/logback-custom.xml"/>
