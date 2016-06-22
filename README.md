@@ -14,3 +14,4 @@ Other changes compared the official tomcat image:
 
 * All the default webapps are removed.
 * TLD and JAR scanners are disabled (faster startup).
+* Resources caching is properly configured.

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="classic" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <target>System.err</target>
+    </appender>
+
+    <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        <target>System.err</target>
+    </appender>
+
+    <include file="conf/logback-custom.xml"/>
+
+    <root level="${TOMCAT_LOG_LEVEL}">
+        <appender-ref ref="${TOMCAT_LOG_TYPE}" />
+    </root>
+</configuration>

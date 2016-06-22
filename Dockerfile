@@ -9,12 +9,13 @@ RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOM
     apt-get install -y --no-install-recommends maven && \
     mkdir ${CATALINA_HOME}/extlib && \
     (cd temp; mvn dependency:copy-dependencies -DoutputDirectory=${CATALINA_HOME}/extlib/) && \
-    perl -0777 -i -pe 's/(<Valve className="org.apache.catalina.valves.AccessLogValve"[^>]*>)/<Valve className="ch.qos.logback.access.tomcat.LogbackValve"\/>/s' ${CATALINA_HOME}/conf/server.xml && \
+    perl -0777 -i -pe 's/(<Valve className="org.apache.catalina.valves.AccessLogValve"[^>]*>)/<Valve className="ch.qos.logback.access.tomcat.LogbackValve" quiet="true"\/>/s' ${CATALINA_HOME}/conf/server.xml && \
     apt-get remove --purge -y maven && \
     apt-get autoremove -y && \
     apt-get clean && \
-    rm -r /var/lib/apt/lists/* ~/.m2 ${CATALINA_HOME}/webapps* && \
+    rm -r /var/lib/apt/lists/* ~/.m2 && \
     perl -0777 -i -pe 's/<\/Context>/<Resources cachingAllowed="true" cacheMaxSize="102400"\/><\/Context>/' ${CATALINA_HOME}/conf/context.xml
+RUN rm -r ${CATALINA_HOME}/webapps/*
 
 COPY . ${CATALINA_HOME}
 
