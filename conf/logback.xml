@@ -12,7 +12,7 @@
         <target>System.err</target>
     </appender>
 
-    <include file="conf/logback-custom.xml"/>
+    <include file="${CATALINA_HOME}/conf/logback-custom.xml"/>
 
     <root level="${TOMCAT_LOG_LEVEL}">
         <appender-ref ref="${TOMCAT_LOG_TYPE}" />
