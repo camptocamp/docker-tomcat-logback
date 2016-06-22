@@ -1,0 +1,6 @@
+<included>
+    <include file="conf/logback-custom.xml"/>
+    <root level="${TOMCAT_LOG_LEVEL}">
+        <appender-ref ref="standardOut" />
+    </root>
+</included>
