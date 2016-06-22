@@ -12,3 +12,5 @@ for jar in ${CATALINA_HOME}/lib/* ${CATALINA_HOME}/extlib/*
 do
     CLASSPATH=${CLASSPATH}:$jar
 done
+
+UMASK="0022"

@@ -13,7 +13,8 @@ RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOM
     apt-get remove --purge -y maven && \
     apt-get autoremove -y && \
     apt-get clean && \
-    rm -r /var/lib/apt/lists/* ~/.m2 ${CATALINA_HOME}/webapps*
+    rm -r /var/lib/apt/lists/* ~/.m2 ${CATALINA_HOME}/webapps* && \
+    perl -0777 -i -pe 's/<\/Context>/<Resources cachingAllowed="true" cacheMaxSize="102400"\/><\/Context>/' ${CATALINA_HOME}/conf/context.xml
 
 COPY . ${CATALINA_HOME}
 
