@@ -9,9 +9,9 @@ Some environment variables are available to tune the logs:
 * TOMCAT_LOG_TYPE:
   * `classic` (default): The logs are humane readable. Access logs are going to stdout and the other logs are going to stderr.
   * `json`: The logs will be formatted in a JSON suitable for logstash. Access logs are going to stdout and the other logs are going to stderr.
-  * `logstash`: The logs will be formatted in a JSON suitable for logstash (@cee) and sent by UDP. The access logs are going to stdout in json format
-* TOMCAT_LOG_HOST: Only for `logstash`, the target host
-* TOMCAT_LOG_PORT: Only for `logstash`, the target port
+  * `logstash`: The logs will be formatted in a JSON suitable for logstash (@cee) and sent by syslog/UDP. The access logs are going to stdout in json format. More variables are available for this mode:
+    * TOMCAT_LOG_HOST: the target host
+    * TOMCAT_LOG_PORT: the target port
 
 If you want to change the way things are logged, change the ${CATALINA_HOME}/conf/logback-custom.xml file.
 
