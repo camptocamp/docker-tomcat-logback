@@ -5,7 +5,8 @@ Based on the official tomcat image, but with logs using logback.
 
 Some environment variables are available to tune the logs:
 
-* TOMCAT_LOG_LEVEL: Set the log level.
+* DEFAULT_LOG_LEVEL: Set the default log level.
+* TOMCAT_LOG_LEVEL: Set the tomcat log level.
 * TOMCAT_LOG_TYPE:
   * `classic` (default): The logs are humane readable. Access logs are going to stdout and the other logs are going to stderr.
   * `json`: The logs will be formatted in a JSON suitable for logstash. Access logs are going to stdout and the other logs are going to stderr.

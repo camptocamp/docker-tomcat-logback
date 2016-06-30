@@ -33,9 +33,13 @@
         <port>${TOMCAT_LOG_PORT:-514}</port>
     </appender>
 
+    <logger name="org.apache.catalina" level="${TOMCAT_LOG_LEVEL}"/>
+    <logger name="org.apache.coyote" level="${TOMCAT_LOG_LEVEL}"/>
+
+
     <include file="${CATALINA_HOME}/conf/logback-custom.xml"/>
 
-    <root level="${TOMCAT_LOG_LEVEL}">
+    <root level="${DEFAULT_LOG_LEVEL}">
         <appender-ref ref="${TOMCAT_LOG_TYPE}" />
     </root>
 </configuration>
