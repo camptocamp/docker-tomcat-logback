@@ -27,7 +27,7 @@
             <timestamp>timestamp</timestamp>
         </fieldNames>
         <prefix class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%syslogStart{USER}@cee:</pattern>
+            <pattern>%syslogStart{USER}tomcat: @cee:</pattern>
         </prefix>
         <host>${TOMCAT_LOG_HOST:-localhost}</host>
         <port>${TOMCAT_LOG_PORT:-514}</port>
