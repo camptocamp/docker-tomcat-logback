@@ -1,7 +1,7 @@
 FROM tomcat:8.5-jre8
 MAINTAINER Camptocamp "info@camptocamp.com"
 
-COPY temp/pom.xml ${CATALINA_HOME}/temp/pom.xml
+COPY temp ${CATALINA_HOME}/temp
 RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties && \
     echo "org.apache.catalina.startup.TldConfig.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties && \
     echo "tomcat.util.scan.DefaultJarScanner.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties && \
@@ -9,6 +9,8 @@ RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOM
     apt-get install -y --no-install-recommends maven && \
     mkdir ${CATALINA_HOME}/extlib && \
     (cd temp; mvn dependency:copy-dependencies -DoutputDirectory=${CATALINA_HOME}/extlib/) && \
+    (cd temp; mvn jar:jar && cp target/tomcat-logstash-1.0.jar ${CATALINA_HOME}/extlib/) && \
+    rm -r temp/target && \
     perl -0777 -i -pe 's/(<Valve className="org.apache.catalina.valves.AccessLogValve"[^>]*>)/<Valve className="ch.qos.logback.access.tomcat.LogbackValve" quiet="true"\/>/s' ${CATALINA_HOME}/conf/server.xml && \
     apt-get remove --purge -y maven && \
     apt-get autoremove -y && \

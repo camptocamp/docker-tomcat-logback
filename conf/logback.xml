@@ -21,13 +21,13 @@
         <target>System.err</target>
     </appender>
 
-    <conversionRule conversionWord="syslogStart" converterClass="ch.qos.logback.classic.pattern.SyslogStartConverter"/>
+    <conversionRule conversionWord="syslogStart" converterClass="com.camptocamp.tomcatlogback.Iso8601SyslogStartConverter"/>
     <appender name="logstash" class="net.logstash.logback.appender.LogstashSocketAppender">
         <fieldNames>
             <timestamp>timestamp</timestamp>
         </fieldNames>
         <prefix class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%syslogStart{USER}tomcat:@cee:</pattern>
+            <pattern>%syslogStart{USER}tomcat: @cee: </pattern>
         </prefix>
         <host>${TOMCAT_LOG_HOST:-localhost}</host>
         <port>${TOMCAT_LOG_PORT:-514}</port>
