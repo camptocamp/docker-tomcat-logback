@@ -1,4 +1,4 @@
-package com.camptocamp.tomcatlogback;
+package com.camptocamp.tomcatlogstash;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

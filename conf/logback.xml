@@ -21,7 +21,7 @@
         <target>System.err</target>
     </appender>
 
-    <conversionRule conversionWord="syslogStart" converterClass="com.camptocamp.tomcatlogback.Iso8601SyslogStartConverter"/>
+    <conversionRule conversionWord="syslogStart" converterClass="com.camptocamp.tomcatlogstash.Iso8601SyslogStartConverter"/>
     <appender name="logstash" class="net.logstash.logback.appender.LogstashSocketAppender">
         <fieldNames>
             <timestamp>timestamp</timestamp>

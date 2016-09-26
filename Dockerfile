@@ -6,13 +6,13 @@ RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOM
     echo "org.apache.catalina.startup.TldConfig.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties && \
     echo "tomcat.util.scan.DefaultJarScanner.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties && \
     apt-get update && \
-    apt-get install -y --no-install-recommends maven && \
+    apt-get install -y --no-install-recommends maven openjdk-8-jdk-headless && \
     mkdir ${CATALINA_HOME}/extlib && \
     (cd temp; mvn dependency:copy-dependencies -DoutputDirectory=${CATALINA_HOME}/extlib/) && \
-    (cd temp; mvn jar:jar && cp target/tomcat-logstash-1.0.jar ${CATALINA_HOME}/extlib/) && \
+    (cd temp; mvn package && cp target/tomcat-logstash-1.0.jar ${CATALINA_HOME}/extlib/) && \
     rm -r temp/target && \
     perl -0777 -i -pe 's/(<Valve className="org.apache.catalina.valves.AccessLogValve"[^>]*>)/<Valve className="ch.qos.logback.access.tomcat.LogbackValve" quiet="true"\/>/s' ${CATALINA_HOME}/conf/server.xml && \
-    apt-get remove --purge -y maven && \
+    apt-get remove --purge -y maven openjdk-8-jdk-headless && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -r /var/lib/apt/lists/* ~/.m2 && \
