@@ -10,7 +10,9 @@
     <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <fieldNames>
-                <timestamp>timestamp</timestamp>
+                <timestamp>timegenerated</timestamp>
+                <level>level_name</level>
+                <message>msg</message>
             </fieldNames>
             <!--<prefix class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
                 <layout class="ch.qos.logback.classic.PatternLayout">
@@ -24,7 +26,9 @@
     <conversionRule conversionWord="syslogStart" converterClass="com.camptocamp.tomcatlogstash.Iso8601SyslogStartConverter"/>
     <appender name="logstash" class="net.logstash.logback.appender.LogstashSocketAppender">
         <fieldNames>
-            <timestamp>timestamp</timestamp>
+            <timestamp>timegenerated</timestamp>
+            <level>level_name</level>
+            <message>msg</message>
         </fieldNames>
         <prefix class="ch.qos.logback.classic.PatternLayout">
             <pattern>%syslogStart{USER}tomcat: @cee: </pattern>
