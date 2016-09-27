@@ -10,7 +10,9 @@
     <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <fieldNames>
-                <timestamp>timestamp</timestamp>
+                <timestamp>timegenerated</timestamp>
+                <level>level_name</level>
+                <message>msg</message>
             </fieldNames>
             <!--<prefix class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
                 <layout class="ch.qos.logback.classic.PatternLayout">
