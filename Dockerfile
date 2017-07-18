@@ -18,11 +18,12 @@ RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOM
     apt-get autoremove -y && \
     apt-get clean && \
     rm -r /var/lib/apt/lists/* ~/.m2 && \
-    perl -0777 -i -pe 's/<\/Context>/<Resources cachingAllowed="true" cacheMaxSize="102400"\/><\/Context>/' ${CATALINA_HOME}/conf/context.xml
+    perl -0777 -i -pe 's/<\/Context>/<Resources cachingAllowed="true" cacheMaxSize="102400"\/><\/Context>/' ${CATALINA_HOME}/conf/context.xml && \
+    perl -0777 -i -pe 's/assistive_technologies/#assistive_technologies/' /etc/java-8-openjdk/accessibility.properties
 RUN rm -r ${CATALINA_HOME}/webapps/*
 
 COPY . ${CATALINA_HOME}
 
-ENV DEFAULT_LOG_LEVEL INFO
-ENV TOMCAT_LOG_LEVEL INFO
-ENV TOMCAT_LOG_TYPE classic
+ENV DEFAULT_LOG_LEVEL=INFO \
+    TOMCAT_LOG_LEVEL=INFO \
+    TOMCAT_LOG_TYPE=classic
