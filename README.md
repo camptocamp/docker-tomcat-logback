@@ -2,11 +2,13 @@
 
 Based on the official tomcat image, but with logs using logback.
 
-
+## Tunning
 Some environment variables are available to tune the logs:
 
 * DEFAULT_LOG_LEVEL: Set the default log level.
 * TOMCAT_LOG_LEVEL: Set the tomcat log level.
+* SENTRY_LOG_LEVEL: Set the Sentry log level.
+* SENTRY_REPORTING_LOG_LEVEL: Starting from what log level to report to Sentry.
 * TOMCAT_LOG_TYPE:
   * `classic` (default): The logs are humane readable. Access logs are going to stdout and the other logs are going to stderr.
   * `json`: The logs will be formatted in a JSON suitable for logstash. Access logs are going to stdout and the other logs are going to stderr.
@@ -18,6 +20,17 @@ If you want to change the way things are logged, change the ${CATALINA_HOME}/con
 
 If your application uses logback/log4j, it is recommended to not ship those libraries with your webapp.
 Just use the ones provided at tomcat level.
+
+
+## Integration with Sentry
+
+You can enable Sentry crash reports by adding a parameter to the CATALINA_OPTS environment variable with the DSN provided by sentry:
+
+* -Dsentry.dsn=https://public:private@host:port/1
+
+Other parameters are documented here: https://docs.sentry.io/clients/java/config/
+
+## Other changes
 
 Other changes compared the official tomcat image:
 

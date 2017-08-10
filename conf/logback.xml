@@ -37,13 +37,20 @@
         <port>${TOMCAT_LOG_PORT:-514}</port>
     </appender>
 
+    <appender name="Sentry" class="io.sentry.logback.SentryAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${SENTRY_REPORTING_LOG_LEVEL}</level>
+        </filter>
+    </appender>
+
     <logger name="org.apache.catalina" level="${TOMCAT_LOG_LEVEL}"/>
     <logger name="org.apache.coyote" level="${TOMCAT_LOG_LEVEL}"/>
-
+    <logger name="io.sentry" level="${SENTRY_LOG_LEVEL}"/>
 
     <include file="${CATALINA_HOME}/conf/logback-custom.xml"/>
 
     <root level="${DEFAULT_LOG_LEVEL}">
         <appender-ref ref="${TOMCAT_LOG_TYPE}" />
+        <appender-ref ref="Sentry" />
     </root>
 </configuration>
