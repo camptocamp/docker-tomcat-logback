@@ -20,7 +20,11 @@ RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOM
     rm -r /var/lib/apt/lists/* ~/.m2 && \
     perl -0777 -i -pe 's/<\/Context>/<Resources cachingAllowed="true" cacheMaxSize="102400"\/><\/Context>/' ${CATALINA_HOME}/conf/context.xml && \
     perl -0777 -i -pe 's/assistive_technologies/#assistive_technologies/' /etc/java-8-openjdk/accessibility.properties
-RUN rm -r ${CATALINA_HOME}/webapps/*
+RUN rm -r ${CATALINA_HOME}/webapps/* && \
+    mkdir -p /usr/local/tomcat/conf/Catalina /usr/local/tomcat/work/Catalina && \
+    chmod -R g+rwx /usr/local/tomcat/conf/Catalina /usr/local/tomcat/work && \
+    chgrp -R root /usr/local/tomcat/conf/Catalina /usr/local/tomcat/work && \
+    chmod g+r /usr/local/tomcat/conf/*
 
 COPY . ${CATALINA_HOME}
 
