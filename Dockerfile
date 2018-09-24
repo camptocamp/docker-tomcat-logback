@@ -19,7 +19,8 @@ RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOM
     apt-get clean && \
     rm -r /var/lib/apt/lists/* ~/.m2 && \
     perl -0777 -i -pe 's/<\/Context>/<Resources cachingAllowed="true" cacheMaxSize="102400"\/><\/Context>/' ${CATALINA_HOME}/conf/context.xml && \
-    perl -0777 -i -pe 's/assistive_technologies/#assistive_technologies/' /etc/java-8-openjdk/accessibility.properties
+    perl -0777 -i -pe 's/assistive_technologies/#assistive_technologies/' /etc/java-8-openjdk/accessibility.properties && \
+    perl -0777 -i -pe 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/urandom/' /etc/java-8-openjdk/security/java.security
 RUN rm -r ${CATALINA_HOME}/webapps/* && \
     mkdir -p /usr/local/tomcat/conf/Catalina /usr/local/tomcat/work/Catalina && \
     chmod -R g+rwx /usr/local/tomcat/conf/Catalina /usr/local/tomcat/work && \
