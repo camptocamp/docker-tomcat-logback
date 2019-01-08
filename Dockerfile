@@ -1,4 +1,4 @@
-FROM tomcat:9-jre10
+FROM tomcat:9-jre11
 MAINTAINER Camptocamp "info@camptocamp.com"
 
 COPY temp ${CATALINA_HOME}/temp
@@ -6,7 +6,7 @@ RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOM
     echo "org.apache.catalina.startup.TldConfig.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties && \
     echo "tomcat.util.scan.DefaultJarScanner.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties && \
     apt-get update && \
-    apt-get install -y --no-install-recommends maven openjdk-10-jdk-headless vim && \
+    apt-get install -y --no-install-recommends maven openjdk-11-jdk-headless vim && \
     mkdir ${CATALINA_HOME}/extlib && \
     cd temp && \
     mvn dependency:copy-dependencies -DoutputDirectory=${CATALINA_HOME}/extlib/ && \
@@ -14,13 +14,13 @@ RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOM
     cd .. && \
     rm -r temp/target && \
     perl -0777 -i -pe 's/(<Valve className="org.apache.catalina.valves.AccessLogValve"[^>]*>)/<Valve className="ch.qos.logback.access.tomcat.LogbackValve" quiet="true"\/>/s' ${CATALINA_HOME}/conf/server.xml && \
-    apt-get remove --purge -y maven openjdk-10-jdk-headless && \
+    apt-get remove --purge -y maven openjdk-11-jdk-headless && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -r /var/lib/apt/lists/* ~/.m2 && \
     perl -0777 -i -pe 's/<\/Context>/<Resources cachingAllowed="true" cacheMaxSize="102400"\/><\/Context>/' ${CATALINA_HOME}/conf/context.xml && \
-    perl -0777 -i -pe 's/assistive_technologies/#assistive_technologies/' /etc/java-10-openjdk/accessibility.properties && \
-    perl -0777 -i -pe 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/urandom/' /etc/java-10-openjdk/security/java.security
+    perl -0777 -i -pe 's/assistive_technologies/#assistive_technologies/' /etc/java-11-openjdk/accessibility.properties && \
+    perl -0777 -i -pe 's/securerandom.source=file:\/dev\/random/securerandom.source=file:\/dev\/urandom/' /etc/java-11-openjdk/security/java.security
 RUN rm -r ${CATALINA_HOME}/webapps/* && \
     mkdir -p /usr/local/tomcat/conf/Catalina /usr/local/tomcat/work/Catalina && \
     chmod -R g+rwx /usr/local/tomcat/conf/Catalina /usr/local/tomcat/work && \
