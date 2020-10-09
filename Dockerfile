@@ -7,7 +7,7 @@ RUN mkdir /tmp/extlib && \
     mvn package && \
     cp target/tomcat-logstash-1.0.jar /tmp/extlib/
 
-FROM tomcat:10.0-jdk11-openjdk-slim AS runner
+FROM tomcat:9.0-jdk11-openjdk-slim AS runner
 LABEL maintainer="Camptocamp <info@camptocamp.com>"
 
 COPY --from=builder /tmp/extlib/ ${CATALINA_HOME}/extlib/
