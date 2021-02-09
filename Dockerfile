@@ -1,4 +1,4 @@
-FROM maven:3-openjdk-16 AS builder
+FROM maven:3-openjdk-17 AS builder
 
 COPY temp /tmp/temp
 RUN mkdir /tmp/extlib && \
