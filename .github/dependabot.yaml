@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: "/temp"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: none
+
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: none
