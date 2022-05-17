@@ -6,6 +6,7 @@ RUN echo "tomcat.util.scan.StandardJarScanFilter.jarsToSkip=*" >> ${CATALINA_HOM
     echo "org.apache.catalina.startup.TldConfig.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties && \
     echo "tomcat.util.scan.DefaultJarScanner.jarsToSkip=*" >> ${CATALINA_HOME}/conf/catalina.properties && \
     apt-get update && \
+    apt-get upgrade --yes && \
     apt-get install -y --no-install-recommends maven openjdk-8-jdk-headless vim && \
     mkdir ${CATALINA_HOME}/extlib && \
     cd temp && \
